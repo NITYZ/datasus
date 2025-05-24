@@ -1,4 +1,10 @@
 library(plumber)
 
-pr("plumber.R") %>%
-  pr_run(host = "0.0.0.0", port = as.numeric(Sys.getenv("PORT", 8000)))
+# Porta injetada automaticamente pelo Render
+port <- as.integer(Sys.getenv("PORT", unset = 8000))
+
+# Carrega o arquivo plumber
+pr <- plumber::plumb("plumber.R")
+
+# Inicia a API
+pr$run(host = "0.0.0.0", port = port)
