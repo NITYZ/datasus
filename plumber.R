@@ -1,4 +1,3 @@
-# plumber.R
 library(plumber)
 library(microdatasus)
 library(dplyr)
@@ -9,12 +8,7 @@ library(dplyr)
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
 function(uf, ano) {
-  df <- fetch_datasus(
-    year_start = as.integer(ano),
-    year_end = as.integer(ano),
-    uf = uf,
-    information_system = "SIH-RD"
-  )
+  df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIH-RD")
   head(df, 10)
 }
 
@@ -22,12 +16,7 @@ function(uf, ano) {
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
 function(uf, ano) {
-  df <- fetch_datasus(
-    year_start = as.integer(ano),
-    year_end = as.integer(ano),
-    uf = uf,
-    information_system = "SIM-DO"
-  )
+  df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIM-DO")
   head(df, 10)
 }
 
@@ -35,12 +24,7 @@ function(uf, ano) {
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
 function(uf, ano) {
-  df <- fetch_datasus(
-    year_start = as.integer(ano),
-    year_end = as.integer(ano),
-    uf = uf,
-    information_system = "SINASC"
-  )
+  df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SINASC")
   head(df, 10)
 }
 
@@ -48,12 +32,7 @@ function(uf, ano) {
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
 function(uf, ano) {
-  df <- fetch_datasus(
-    year_start = as.integer(ano),
-    year_end = as.integer(ano),
-    uf = uf,
-    information_system = "SIA-PA"
-  )
+  df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIA-PA")
   head(df, 10)
 }
 
@@ -61,14 +40,9 @@ function(uf, ano) {
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
 function(uf, ano) {
-  df <- fetch_datasus(
-    year_start = as.integer(ano),
-    year_end = as.integer(ano),
-    uf = uf,
-    information_system = "CNES-ST"
-  )
+  df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "CNES-ST")
   head(df, 10)
 }
 
-# Start API (obrigatório pro Render)
-pr() %>% pr_run(host = "0.0.0.0", port = as.numeric(Sys.getenv("PORT", 8000)))
+# Start API – esta linha é essencial para Render
+pr("plumber.R") %>% pr_run(host = "0.0.0.0", port = as.numeric(Sys.getenv("PORT", 8000)))
