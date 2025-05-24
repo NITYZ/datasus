@@ -4,4 +4,6 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
-    healthCheckPath: /
+    healthCheckPath: /healthcheck
+    autoDeploy: true
+    pullRequestPreviewsEnabled: false
