@@ -44,5 +44,5 @@ function(uf, ano) {
   head(df, 10)
 }
 
-# Start API – esta linha é essencial para Render
+# Start da API (Render usa a porta do ambiente)
 pr("plumber.R") %>% pr_run(host = "0.0.0.0", port = as.numeric(Sys.getenv("PORT", 8000)))
