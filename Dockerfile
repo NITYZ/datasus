@@ -13,7 +13,8 @@ COPY install.R /install.R
 RUN Rscript /install.R
 
 COPY plumber.R /plumber.R
+COPY run_api.R /run_api.R
 
 EXPOSE 8000
 
-CMD ["Rscript", "plumber.R"]
+CMD ["Rscript", "run_api.R"]
