@@ -43,6 +43,3 @@ function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "CNES-ST")
   head(df, 10)
 }
-
-# Start da API (Render usa a porta do ambiente)
-pr("plumber.R") %>% pr_run(host = "0.0.0.0", port = as.numeric(Sys.getenv("PORT", 8000)))
