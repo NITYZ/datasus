@@ -1,1 +1,5 @@
-install.packages(c("plumber", "microdatasus", "dplyr"))
+install.packages(c(
+  "plumber",
+  "microdatasus",
+  "dplyr"
+))
