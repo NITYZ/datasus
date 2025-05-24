@@ -1,26 +1,32 @@
-# Define repositório CRAN confiável
 options(repos = c(CRAN = "https://cloud.r-project.org"))
 
-# Lista de pacotes CRAN necessários
-cran_packages <- c(
-  "remotes",
-  "plumber",
-  "dplyr",
-  "jsonlite",
-  "readr",
-  "checkmate"
-)
+# Lista de pacotes obrigatórios
+cran_packages <- c("remotes", "plumber", "dplyr", "checkmate", "jsonlite", "readr")
 
-# Instala somente os que ainda não estão presentes
+# Verifica o que falta
 installed <- rownames(installed.packages())
 to_install <- setdiff(cran_packages, installed)
+
+# Instala com log
 if (length(to_install) > 0) {
-  install.packages(to_install, dependencies = TRUE)
+  cat("📦 Instalando pacotes CRAN faltantes:\n", paste(to_install, collapse = ", "), "\n")
+  tryCatch({
+    install.packages(to_install, dependencies = TRUE)
+  }, error = function(e) {
+    cat("❌ Erro ao instalar pacotes CRAN:\n", e$message, "\n")
+    quit(status = 1)
+  })
 }
 
-# Instala microdatasus do GitHub (força reinstalação só se ausente)
+# Instala microdatasus via GitHub com tratamento de erro
 if (!"microdatasus" %in% installed) {
-  remotes::install_github("rfsaldanha/microdatasus", dependencies = TRUE)
+  cat("📦 Instalando microdatasus do GitHub...\n")
+  tryCatch({
+    remotes::install_github("rfsaldanha/microdatasus", dependencies = TRUE)
+  }, error = function(e) {
+    cat("❌ Erro ao instalar microdatasus:\n", e$message, "\n")
+    quit(status = 1)
+  })
 }
 
 cat("✅ Todos os pacotes instalados com sucesso.\n")
