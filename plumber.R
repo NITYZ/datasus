@@ -7,7 +7,7 @@ library(dplyr)
 #* @get /sih
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
-function(uf, ano) {
+sih <- function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIH-RD")
   head(df, 10)
 }
@@ -15,7 +15,7 @@ function(uf, ano) {
 #* @get /sim
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
-function(uf, ano) {
+sim <- function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIM-DO")
   head(df, 10)
 }
@@ -23,7 +23,7 @@ function(uf, ano) {
 #* @get /sinasc
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
-function(uf, ano) {
+sinasc <- function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SINASC")
   head(df, 10)
 }
@@ -31,7 +31,7 @@ function(uf, ano) {
 #* @get /sia
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
-function(uf, ano) {
+sia <- function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "SIA-PA")
   head(df, 10)
 }
@@ -39,7 +39,12 @@ function(uf, ano) {
 #* @get /cnes
 #* @param uf Estado (ex: "SP")
 #* @param ano Ano (ex: 2022)
-function(uf, ano) {
+cnes <- function(uf, ano) {
   df <- fetch_datasus(as.integer(ano), as.integer(ano), uf, "CNES-ST")
   head(df, 10)
 }
+
+# Start da API para Render
+port <- as.integer(Sys.getenv("PORT", unset = 8000))
+pr <- plumber::plumb("plumber.R")
+pr$run(host = "0.0.0.0", port = port)
