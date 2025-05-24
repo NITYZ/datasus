@@ -5,3 +5,5 @@ install.packages(c(
 ), dependencies = TRUE, repos = "https://cloud.r-project.org")
 
 remotes::install_github("rfsaldanha/microdatasus")
+install.packages("jsonlite")
+install.packages("readr")
